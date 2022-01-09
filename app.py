@@ -29,8 +29,9 @@ available_tee_times = {key:val for key, val in available_tee_times.items() if va
 for key, value in available_tee_times.items():
     available_tee_times[key] = value[:3] + '.' + value[3:]
 
-# Prints num and details of available tee-times on a new line.
+# Prints num and details/location of available tee-times on a new line.
 num_available_tee_times = len(available_tee_times)
+print(driver.title)
 print(f"There are {num_available_tee_times} available tee-times today.")
 [print(key, ':', value) for key, value in available_tee_times.items()]
 
