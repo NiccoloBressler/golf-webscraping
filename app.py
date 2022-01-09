@@ -7,6 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # URLS being webscraped
 my_url1 = "https://www.heritageislesgolf.com/tee-times/"
 
+# Gets tee-times
 try:
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     # Passes in website being scraped and searched for all tee-times.
@@ -17,3 +18,9 @@ try:
         tee_times_list.append(tee_times[time].text)
 except NoSuchElementException:
     print("No available tee times.")
+
+# Gets prices
+
+# Holes
+
+# Players
