@@ -4,14 +4,14 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
 
-# URLS being webscraped
-my_url1 = "https://www.heritageislesgolf.com/tee-times/"
+# Individual golf course websites being scraped
+heritage_isles = "https://www.heritageislesgolf.com/tee-times/"
 
 # Gets tee-times
 try:
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     # Passes in website being scraped and searched for all tee-times.
-    driver.get(my_url1)
+    driver.get(heritage_isles)
     tee_times = driver.find_element(By.XPATH,'//p[@class="jss503"]')
     tee_times_list = []
     for time in range(len(tee_times)):
