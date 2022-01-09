@@ -11,12 +11,14 @@ driver.get('https://www.golfnow.com/tee-times/facility/3130-heritage-isles-golf-
 
 # Adds all available tee-times to a list
 tee_times = []
-for item in driver.find_elements(By.CLASS_NAME,"time-meridian"):
+for item in driver.find_elements(By.CLASS_NAME, "time-meridian"):
     tee_times.append(item.text)
 
 # Adds all available tee-time's prices/status to a list
 statuses = []
-for item in driver.find_elements(By.XPATH,"//*[@class='zone-price' or @class='price']"):
+for item in driver.find_elements(By.CLASS_NAME, "zone-price"):
+    statuses.append(item.text)
+for item in driver.find_elements(By.CLASS_NAME, "price"):
     statuses.append(item.text)
 
 # Merges tee-times and prices/status into a single dictionary
