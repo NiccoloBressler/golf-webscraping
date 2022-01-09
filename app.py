@@ -23,7 +23,7 @@ for item in driver.find_elements(By.CLASS_NAME, "price"):
 
 # Removes tee-time if it has already been sold, then prints.
 available_tee_times = dict(zip(tee_times, statuses))
-available_tee_times = {key:val for key, val in final_dict.items() if val != "SOLD"}
+available_tee_times = {key:val for key, val in available_tee_times.items() if val != "SOLD"}
 print(available_tee_times)
 
 
