@@ -1,5 +1,19 @@
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
 
-html_text = requests.get("https://www.heritageislesgolf.com/tee-times/")
-print(html_text)
+# URLS being webscraped
+my_url1 = "https://www.heritageislesgolf.com/tee-times/"
+
+try:
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    # Passes in website being scraped and searched for all tee-times.
+    driver.get(my_url1)
+    tee_times = driver.find_element(By.XPATH,'//p[@class="jss503"]')
+    tee_times_list = []
+    for time in range(len(tee_times)):
+        tee_times_list.append(tee_times[time].text)
+except NoSuchElementException:
+    print("No available tee times.")
