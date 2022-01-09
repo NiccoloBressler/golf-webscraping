@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+import pandas as pd
 
 driver = webdriver.Chrome()
 driver.get('https://www.golfnow.com/tee-times/facility/3130-heritage-isles-golf-country-club/search?gclid=Cj0KCQiAieWOBhCYARIsANcOw0yLI2fS6gmlsfUgjxe0gNZdSVw6Oai3mix-0OMXosonYEnjm8sqr54aAoCSEALw_wcB#sortby=Date&view=Grouping&holes=3&timeperiod=3&timemax=42&timemin=10&players=0&pricemax=10000&pricemin=0')
@@ -29,12 +30,28 @@ available_tee_times = {key:val for key, val in available_tee_times.items() if va
 for key, value in available_tee_times.items():
     available_tee_times[key] = value[:3] + '.' + value[3:]
 
-# Prints num and details/location of available tee-times on a new line.
-num_available_tee_times = len(available_tee_times)
-print(driver.title)
-print(f"There are {num_available_tee_times} available tee-times today.")
-[print(key, ':', value) for key, value in available_tee_times.items()]
-
 # Holes
+holes = []
+for item in driver.find_elements(By.CLASS_NAME, "holes"):
+    holes.append(item.text)
+
+# Prevents holes from showing up on wrong tee-times due to unavailable slots.
+while '' in holes:
+    holes.remove('')
 
 # Players
+players = []
+for item in driver.find_elements(By.CLASS_NAME, "golfers-available"):
+    players.append(item.text)
+
+# Takes dictionary and turns keys and values into lists.
+times = list(available_tee_times.keys())
+prices = list(available_tee_times.values())
+
+zipped = list(zip(times, prices, holes, players))
+
+# Creates a dataframe from all four lists.
+df = pd.DataFrame(zipped, columns=['Time', 'Price', 'Holes', 'Players'])
+print(df)
+
+
