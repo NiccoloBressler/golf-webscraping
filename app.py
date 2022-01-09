@@ -35,8 +35,6 @@ print(driver.title)
 print(f"There are {num_available_tee_times} available tee-times today.")
 [print(key, ':', value) for key, value in available_tee_times.items()]
 
-
-
 # Holes
 
 # Players
