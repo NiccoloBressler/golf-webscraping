@@ -52,6 +52,7 @@ zipped = list(zip(times, prices, holes, players))
 
 # Creates a dataframe from all four lists.
 df = pd.DataFrame(zipped, columns=['Time', 'Price', 'Holes', 'Players'])
+print(driver.title)
 print(df)
 
 
