@@ -1,3 +1,4 @@
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -6,7 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 
-driver = webdriver.Chrome()
+# Suppresses unnecessary selenium error messages
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+driver = webdriver.Chrome(options=options)
 driver.get('https://www.golfnow.com/tee-times/facility/3130-heritage-isles-golf-country-club/search?gclid=Cj0KCQiAieWOBhCYARIsANcOw0yLI2fS6gmlsfUgjxe0gNZdSVw6Oai3mix-0OMXosonYEnjm8sqr54aAoCSEALw_wcB#sortby=Date&view=Grouping&holes=3&timeperiod=3&timemax=42&timemin=10&players=0&pricemax=10000&pricemin=0')
 
 # Adds all available tee-times to a list
@@ -52,6 +57,8 @@ zipped = list(zip(times, prices, holes, players))
 # Creates a dataframe from all four lists.
 df = pd.DataFrame(zipped, columns=['Time', 'Price', 'Holes', 'Players'])
 print(driver.title)
+print(f"There are currently {len(df)} tee-times available at this location.")
 print(df)
-
+time.sleep(5)
+driver.quit()
 
