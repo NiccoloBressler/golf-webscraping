@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 
+print("Fetching tee-times...")
+
 # Suppresses unnecessary selenium error messages
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -59,6 +61,7 @@ zipped = list(zip(times, prices, holes, players))
 
 # Creates a dataframe from all four lists.
 df = pd.DataFrame(zipped, columns=['Time', 'Price', 'Holes', 'Players'])
+
 print(driver.title)
 print(f"There are currently {len(df)} tee-times available at this location.")
 print(df)
