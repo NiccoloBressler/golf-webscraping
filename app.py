@@ -1,10 +1,12 @@
-# from flask import Flask
+from flask import Flask
 
-# main = Flask(__name__)
+from getHeritageIsles import getHeritageIsles
 
-# @main.route('/')
-# def index():
-#     return "Hello, World!"
+main = Flask(__name__)
 
-# if __name__ == "__main__":
-#     main.run(debug=True)
+@main.route('/')
+def index():
+    return getHeritageIsles
+
+if __name__ == "__main__":
+    main.run(debug=True)
